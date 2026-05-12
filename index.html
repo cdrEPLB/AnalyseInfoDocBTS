@@ -44,21 +44,29 @@
       border: 1px solid #dde4ea;
     }
 
-    .toolbar {
-      display: flex;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      background: green;
-      color: white;
-      padding: 18px 22px;
-    }
+	.toolbar {
+	  display: flex;
+	  gap: 28px;
+	  justify-content: center;
+	  align-items: center;
+	  flex-wrap: wrap;
+	  text-align: center;
+
+	  background: linear-gradient(135deg, #15803d, #166534);
+	  color: white;
+	  padding: 24px 28px;
+
+	  box-shadow:
+		0 10px 30px rgba(0,0,0,0.18),
+		inset 0 -2px 0 rgba(255,255,255,0.12);
+	}
 
     .toolbar h1 {
       margin: 0;
-      font-size: 1.2rem;
-      letter-spacing: 0.02em;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.22);
     }
 
     .toolbar p {
@@ -69,61 +77,173 @@
 
     .toolbar-actions {
       display: flex;
-      gap: 10px;
+      gap: 22px;
       flex-wrap: wrap;
-    }
-
-    .lang-toggle {
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 999px;
-      padding: 4px;
+      justify-content: center;
     }
 
-    .lang-toggle button {
-      min-width: auto;
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: transparent;
-      color: white;
-      border: 0;
-      box-shadow: none;
-      font-size: 1.05rem;
+	button .emoji {
+	  font-size: 1.75rem;
+	  margin-bottom: 8px;
+	  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18));
+	}
+
+	.lang-toggle {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 1px;
+	  background: rgba(255,255,255,0.16);
+	  border: 1px solid rgba(255,255,255,0.28);
+	  border-radius: 999px;
+	  padding: 1px 2px;
+	  width: auto;
+	  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+	}
+
+	.lang-toggle button::before {
+	  font-size: 1.9rem;
+	  line-height: 1;
+	}
+
+    .lang-toggle button:hover {
+      transform: none;
+      filter: brightness(1.08);
     }
 
     .lang-toggle button.is-active {
       background: white;
-      color: var(--accent);
+      color: #166534;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     }
+
+	.flag-fr::before {
+	  content: "🇫🇷";
+	}
+
+	.flag-en::before {
+	  content: "🇬🇧";
+	}
 
     .toolbar-actions .btn-secondary,
     .toolbar-actions .btn-primary {
-      min-width: 160px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+      min-width: 120px;
+      max-width: 120px;
+      min-height: 70px;
+      padding: 10px 10px;
+      line-height: 1.2;
+      white-space: pre-line;
+      text-align: center;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 0.98rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
+	.toolbar button,
+	.toolbar-actions button {
+	  border: 0;
+	  border-radius: 18px;
+	  padding: 6px 6px;
+	  font-size: 0.96rem;
+	  font-weight: 700;
+	  cursor: pointer;
+
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+
+	  min-width: 100px;
+	  min-height: 50px;
+
+	  line-height: 1.25;
+	  text-align: center;
+
+	  box-shadow:
+		0 6px 0 rgba(0,0,0,0.18),
+		0 14px 30px rgba(0,0,0,0.20);
+
+	  backdrop-filter: blur(2px);
+
+	  transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease,
+		filter 0.18s ease,
+		background 0.18s ease;
+	}
+
+	.rich-toolbar button {
+	  padding: 8px 10px;
+	  font-size: 0.9rem;
+	  border-radius: 8px;
+	  background: #fff;
+	  color: #1e293b;
+	  border: 1px solid #cbd5e1;
+	  min-width: auto;
+	  min-height: auto;
+	  display: inline-flex;
+	  flex-direction: row;
+	  white-space: nowrap;
+	  box-shadow: none;
+	  transform: none;
+	}
+
+	button:hover {
+	  transform: translateY(-3px);
+
+	  box-shadow:
+		0 8px 0 rgba(0,0,0,0.16),
+		0 20px 38px rgba(0,0,0,0.24);
+
+	  filter: brightness(1.04);
+	}
+
+	button:active {
+	  transform: translateY(3px);
+
+	  box-shadow:
+		0 2px 0 rgba(0,0,0,0.25),
+		0 4px 10px rgba(0,0,0,0.15);
+	}
 
     .btn-primary {
-      background: #fff;
-      color: var(--accent);
+      background: linear-gradient(135deg, #ffffff, #f1f5f9);
+      color: #0f172a;
+      border: 1px solid rgba(255,255,255,0.65);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
     }
 
     .btn-secondary {
-      background: #f8fafc;
-      color: var(--accent);
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      color: #0f172a;
       border: 1px solid #cbd5e1;
     }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #ffffff, #dbeafe);
+    }
+
+	.lang-toggle button {
+	  min-width: 60px;
+	  width: 60px;
+	  height: 60px;
+	  min-height: 60px;
+	  padding: 0;
+	  border-radius: 999px;
+	  background: transparent;
+	  color: white;
+	  border: 0;
+	  box-shadow: none;
+	  font-size: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
 
     .editor {
       padding: 22px;
@@ -320,6 +440,12 @@
 
     @media (max-width: 860px) {
       .grid-1, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .toolbar { padding: 18px 14px; }
+      .toolbar-actions { flex-wrap: wrap; justify-content: center; gap: 14px; }
+      .toolbar-actions .btn-secondary,
+      .toolbar-actions .btn-primary { min-width: 125px; max-width: 145px; min-height: 88px; }
+      button { min-width: 125px; min-height: 88px; font-size: 0.9rem; }
+      button .emoji { font-size: 1.5rem; }
       .app { padding: 14px; }
       .editor { padding: 14px; }
     }
@@ -507,23 +633,49 @@
 </head>
 <body>
   <div class="app">
-    <div class="screen-card">
-      <div class="toolbar">
+    <div class="screen-card" >
+      <div class="toolbar"style="text-align:center;">
         <div>
           <h1>Analyse du document en BTS - Lycée Agricole du Bourbonnais</h1>
 
         </div>
-        <div class="toolbar-actions">
+        <div class="toolbar-actions" style="text-align:center;">
           <div class="lang-toggle" aria-label="Choix de la langue / Language choice">
-            <button type="button" id="btn-lang-fr" class="is-active" data-lang-switch="fr" title="Version française">🇫🇷</button>
-            <button type="button" id="btn-lang-en" data-lang-switch="en" title="English version">🇬🇧</button>
+
+				<button type="button"
+						id="btn-lang-fr"
+						class="is-active flag-fr"
+						data-lang-switch="fr"
+						title="Version française">
+				</button>
+
+				<button type="button"
+						id="btn-lang-en"
+						class="flag-en"
+						data-lang-switch="en"
+						title="English version">
+				</button>
+
           </div>
           <input type="file" id="file-import-excel" accept=".xlsx,.xls" hidden>
-          <button class="btn-secondary" type="button" id="btn-save-excel">Enregistrer une fiche</button>
-          <button class="btn-secondary" type="button" id="btn-import-excel">Ouvrir une fiche</button>
-          <button class="btn-primary" type="button" id="btn-export">Exporter en PDF</button>
-          <button class="btn-secondary" type="button" id="btn-remplir-exemple">Charger un exemple</button>		  
-          <button class="btn-secondary" type="button" id="btn-reset">Effacer les données</button>		  
+          <button class="btn-secondary" type="button" id="btn-save-excel"><span class="emoji">💾</span>
+Enregistrer
+une fiche</button>
+          <button class="btn-secondary" type="button" id="btn-import-excel"><span class="emoji">📂</span>
+Ouvrir
+une fiche</button>
+          <button class="btn-primary" type="button" id="btn-export"><span class="emoji">🖨️</span>
+Exporter
+en PDF</button>
+          <button class="btn-secondary" type="button" id="btn-remplir-exemple"><span class="emoji">📄</span>
+Charger
+un exemple</button>		  
+          <button class="btn-secondary" type="button" id="btn-guide"><span class="emoji">❓</span>
+Mode
+d'emploi</button>
+          <button class="btn-secondary" type="button" id="btn-reset"><span class="emoji">🗑️</span>
+Effacer
+les données</button>		  
         </div>
       </div>
 
@@ -828,10 +980,10 @@
       fr: {
         title: 'Analyse du document en BTS - Lycée Agricole du Bourbonnais',
         buttons: {
-          save: 'Enregistrer une fiche', import: 'Ouvrir une fiche', export: 'Exporter en PDF', example: 'Charger un exemple', reset: 'Effacer les données'
+          save: '💾\nEnregistrer\nune fiche', import: '📂\nOuvrir\nune fiche', export: '🖨️\nExporter\nen PDF', example: '📄\nCharger\nun exemple', guide: "❓\nMode\nd'emploi", reset: '🗑️\nEffacer\nles données'
         },
         sections: {
-          support: 'Support du document : quoi ?', nature: "Nature et genre de l'information", production: 'Production du document : comment ? pourquoi ? où ?', complement: "Afin de compléter l'analyse", pertinence: "Que retiens-tu de pertinent pour répondre au besoin d'information ?"
+          support: '📌 Support du document : quoi ?', nature: "🧭 Nature et genre de l'information", production: '🏭 Production du document : comment ? pourquoi ? où ?', complement: "🧩 Afin de compléter l'analyse", pertinence: "🎯 Que retiens-tu de pertinent pour répondre au besoin d'information ?"
         },
         labels: {
           nom:'Nom', prenom:'Prénom', classe:'Classe', docnum:'N° du document', typeDoc:'Type de document', autre:'Autre', mat:'Support matériel de l\'information' , matAutre:'Précision du support matériel si autre', nature:'Type de document', icono:'Précision pour le support iconographique', contenu:'Type de contenu', genre:'Genre de l\'information', contexte:'Contexte de production / création', intention:"Intention de l'émetteur / de l'éditeur", origine:'Origine géographique (pays, ville, région)', identification:'Identification du document', titre:'Titre du document', auteur:'Émetteur(s) / auteur(s)', editeur:'Éditeur(s)', date:'Date(s) de création / modification', pagination:'Pagination / durée / volume', biblioTitle:'Référence bibliographique', biblio:'Identification normée du document', validAuteur:"Validité de la source : compétence de l'auteur / des auteurs", validEditeur:"Validité de la source : que dire de l'éditeur ?", besoin:"Rappel du besoin d'information", pertinence:'Éléments de pertinence du document', remarques:'Remarque(s) / Question(s)'
@@ -843,7 +995,7 @@
           'Informer ou diffuser le savoir':'Informer ou diffuser le savoir', Former:'Former', Débattre:'Débattre', 'Sensibiliser à une cause':'Sensibiliser à une cause', Vendre:'Vendre', Convaincre:'Convaincre',
           genreS:'Information spécialisée (explicite + durable)', genreR:'Information de renseignement (explicite + éphémère)', genreC:'Information culturelle (diffuse + durable)', genreM:'Information médiatique (diffuse + éphémère)'
         },
-        rich: {bold:'Gras', underline:'Souligné', italic:'Italique', remove:'Effacer format'},
+        rich: {bold:'🔤 Gras', underline:'〰️ Souligné', italic:'✍️ Italique', remove:'🧽 Effacer format'},
         help: 'Outil : ',
         print: {
           header1:'Lycée Agricole du Bourbonnais - BTS', header2:'Analyse du document', nom:'NOM :', prenom:'Prénom :', classe:'Classe :', num:'N°', support:'Support du document : Quoi ?', type:'Type de document ?', mat:"Support matériel de l'information ?", natureTitle:"Nature et Genre de l'information et support matériel : Quoi ?", nature:"Nature de l'information ?", contenu:'Type de contenu ?', genre:"Genre de l'information ?", prod:'Production du document : Comment ? Pourquoi ? Où ?', contexte:'Contexte de production / création du document ?', intention:"Intention de l'émetteur (auteur) ou de l'éditeur ?", origine:'Origine géographique ?', comp:"Afin de compléter l'analyse : Identification du document", intro:"Concernant l'identification de la source de l'information, parmi les éléments d'identité je peux voir que le document :", aTitre:'a pour titre ', aAuteur:'a pour émetteur(s) / auteur(s) ', aEditeur:'a pour éditeur(s) / diffuseur(s) ', aDate:'a pour date(s) de création / modification ', aPagination:'a pour pagination / durée / volume ', biblio:'Identification normée du document : référence bibliographique', valid:"Validité de la source de l'information", validAuteur:"Je peux dire que l'auteur / les auteurs du document est / sont compétent(s) car :", validEditeur:"Que puis-je dire de l'éditeur ? (important si l'auteur n'est pas identifiable)", pertinence:"Que retiens-tu de pertinent pour répondre au besoin d'information ?", besoin:"Rappel du besoin d'information =", elem:'Éléments de pertinence du document =', remarques:'Remarque(s) / Question(s)'
@@ -855,12 +1007,12 @@
 	  // ANGLAIS
 	  en: {
         title: 'Document analysis for BTS - Lycée Agricole du Bourbonnais',
-        buttons: {save:'Save file', import:'Open file', export:'Export as PDF', example:'Load an example', reset:'Clear data'},
-        sections: {support:'Document medium: What?', 
-				nature:'Nature and kind of information: What?', 
-				production:'Document output: How? Why? Where?', 
-				complement:'In order to complete the analysis: document identification', 
-				pertinence:'What relevant information do you retain to answer the information need?'},
+        buttons: {save:'💾\nSave\nfile', import:'📂\nOpen\nfile', export:'🖨️\nExport\nas PDF', example:'📄\nLoad\nexample', guide:'❓\nUser\nguide', reset:'🗑️\nClear\ndata'},
+        sections: {support:'📌 Document medium: What?', 
+				nature:'🧭 Nature and kind of information: What?', 
+				production:'🏭 Document output: How? Why? Where?', 
+				complement:'🧩 In order to complete the analysis: document identification', 
+				pertinence:'🎯 What relevant information do you retain to answer the information need?'},
         labels: {nom:'Family name', prenom:'Christian name', classe:'Class', docnum:'Document N°', 
 				typeDoc:'Document type', autre:'Other', matAutre:'Details about the physical medium if other', mat:'Physical medium of the information', 
 				nature:'Nature of information', icono:'Details for iconographic material', contenu:'Content type', 
@@ -883,7 +1035,7 @@
 				Former:'Train / educate', Débattre:'Discuss', 'Sensibiliser à une cause':'Raise awareness of an issue', Vendre:'Sell', Convaincre:'Convince', 
 				genreS:'Specialized information (explicit + long-lasting)', genreR:'Practical information (explicit + short-lived)', 
 				genreC:'Cultural information (unclear + long-lasting)', genreM:'Media information (unclear + short-lived)'},
-        rich:{bold:'Bold', underline:'Underline', italic:'Italic', remove:'Clear formatting'},
+        rich:{bold:'🔤 Bold', underline:'〰️ Underline', italic:'✍️ Italic', remove:'🧽 Clear formatting'},
         help:'Tool: ',
         print:{header1:'Lycée Agricole du Bourbonnais - BTS', header2:'Document analysis', nom:'LAST NAME:', prenom:'First name:', classe:'Class:', num:'No.', 
 				support:'Document medium: What?', type:'Document type?', mat:'Physical medium of the information?', 
@@ -912,7 +1064,7 @@
       currentLang = lang; localStorage.setItem('analyse-doc-lang', lang); document.documentElement.lang = lang;
       document.querySelectorAll('[data-lang-switch]').forEach(b => b.classList.toggle('is-active', b.dataset.langSwitch === lang));
       setNodeText('.toolbar h1', t('title'));
-      setNodeText('#btn-save-excel', t('buttons.save')); setNodeText('#btn-import-excel', t('buttons.import')); setNodeText('#btn-export', t('buttons.export')); setNodeText('#btn-remplir-exemple', t('buttons.example')); setNodeText('#btn-reset', t('buttons.reset'));
+      setNodeText('#btn-save-excel', t('buttons.save')); setNodeText('#btn-import-excel', t('buttons.import')); setNodeText('#btn-export', t('buttons.export')); setNodeText('#btn-remplir-exemple', t('buttons.example')); setNodeText('#btn-guide', t('buttons.guide')); setNodeText('#btn-reset', t('buttons.reset'));
       const hs = document.querySelectorAll('.section h2');
       if (hs[0]) hs[0].textContent = t('sections.support'); if (hs[1]) hs[1].textContent = t('sections.nature'); if (hs[2]) hs[2].textContent = t('sections.production'); if (hs[3]) hs[3].textContent = t('sections.complement'); if (hs[4]) hs[4].textContent = t('sections.pertinence');
       const labels = Array.from(document.querySelectorAll('.field-label, .subcard-title'));
@@ -1324,6 +1476,98 @@ if (pertinenceStrong) pertinenceStrong.textContent = P.elem;
       window.print();
     }
 
+
+
+    function openUserGuide() {
+      const guides = {
+        fr: {
+          title: "Mode d'emploi - Analyse du document en BTS",
+          intro: "Ce mode d'emploi explique les principales fonctions de l'outil. Il est intégré dans le fichier HTML et s'ouvre dans un nouvel onglet.",
+          sections: [
+			  ['🌍 1. Choisir la langue', "Utilisez les boutons 🇫🇷 et 🇬🇧 en haut de l'écran pour passer de la version française à la version anglaise. Le choix est mémorisé dans le navigateur."],
+			  ['💾 2. Enregistrer une fiche', "Le bouton Enregistrer une fiche télécharge un fichier Excel (.xlsx) contenant toutes les données saisies. Le nom du fichier est généré avec le nom, le prénom, le numéro du document, le titre et la date du jour."],
+			  ['📂 3. Ouvrir une fiche', "Le bouton Ouvrir une fiche permet de réimporter un fichier Excel créé avec cet outil afin de reprendre ou corriger une analyse."],
+			  ['🖨️ 4. Exporter en PDF', "Le bouton Exporter en PDF ouvre la fenêtre d'impression du navigateur. Pour un rendu propre, décochez les en-têtes et pieds de page, puis choisissez Enregistrer au format PDF."],
+			  ['📄 5. Charger un exemple', "Le bouton Charger un exemple remplit automatiquement la fiche avec un modèle complet. Il sert à comprendre le type de réponses attendues."],
+			  ['❓ 6. Mode d’emploi', "Cette fenêtre d’aide explique les principales fonctions de l’outil et les conseils d’utilisation."],
+			  ['🗑️ 7. Effacer les données', "Le bouton Effacer les données réinitialise toute la fiche après confirmation. Pensez à enregistrer avant si vous souhaitez conserver votre travail."],
+			  ['✍️ 8. Remplir la fiche', "Complétez les champs de chaque rubrique : identification, support, nature, production, identification du document, validité de la source et pertinence. Les zones complètes passent en vert pour indiquer l'avancement."],
+			  ['🔤 9. Mettre en forme la référence bibliographique', "Dans la zone de référence bibliographique, sélectionnez du texte puis utilisez les boutons Gras, Souligné, Italique ou Effacer format."],
+			  ['✅ 10. Conseils d’utilisation', "Sauvegardez régulièrement votre fiche au format Excel. Vérifiez la validité de la source, l'identification bibliographique et la pertinence des informations avant l'export PDF."]
+]
+        },
+        en: {
+          title: 'User guide - Document analysis for BTS',
+          intro: 'This user guide explains the main features of the tool. It is embedded in the HTML file and opens in a new browser tab.',
+			sections: [
+			  ['🌍 1. Choose the language', 'Use the 🇫🇷 and 🇬🇧 buttons at the top of the screen to switch between French and English. The choice is saved in the browser.'],
+			  ['💾 2. Save a file', 'The Save file button downloads an Excel file (.xlsx) containing all entered data. The file name is generated from the name, document number, title and current date.'],
+			  ['📂 3. Open a file', 'The Open file button imports an Excel file created with this tool so you can continue or correct an analysis.'],
+			  ['🖨️ 4. Export as PDF', 'The Export as PDF button opens the browser print window. For a clean result, uncheck headers and footers, then choose Save as PDF.'],
+			  ['📄 5. Load an example', 'The Load an example button automatically fills in the form with a complete model to show the expected type of answers.'],
+			  ['❓ 6. User guide', 'This help window explains the main features of the tool and gives usage advice.'],
+			  ['🗑️ 7. Clear data', 'The Clear data button resets the whole form after confirmation. Save first if you want to keep your work.'],
+			  ['✍️ 8. Fill in the form', 'Complete each section: identification, medium, nature, production, document identification, source validity and relevance. Completed sections turn green to show progress.'],
+			  ['🔤 9. Format the bibliography reference', 'In the bibliography field, select text and use Bold, Underline, Italic or Clear formatting.'],
+			  ['✅ 10. Usage tips', 'Save your work regularly as an Excel file. Check the source validity, bibliography reference and relevance of the information before exporting to PDF.']
+			]
+        }
+      };
+      const guide = guides[currentLang] || guides.fr;
+
+      const rows = guide.sections.map(([heading, text]) => `
+        <section>
+          <h2>${escapeHtml(heading)}</h2>
+          <p>${escapeHtml(text)}</p>
+        </section>`).join('');
+
+      const html = `<!DOCTYPE html>
+<html lang="${escapeHtml(currentLang)}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(guide.title)}</title>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: #111; line-height: 1.5; }
+    main { max-width: 900px; margin: 0 auto; padding: 28px; }
+    .card { background: #fff; border: 1px solid #dde4ea; border-radius: 16px; box-shadow: 0 10px 28px rgba(15,23,42,.10); overflow: hidden; }
+    header { background: linear-gradient(135deg, #15803d, #166534); color: white; padding: 22px 26px; box-shadow: 0 8px 22px rgba(0,0,0,.16); }
+    h1 { margin: 0; font-size: 1.45rem; }
+    .intro { margin: 8px 0 0; opacity: .95; }
+    .content { padding: 22px 26px; }
+    section { border: 1px solid #d9e2ec; border-radius: 12px; padding: 14px 16px; margin: 0 0 14px; background: #f8fafc; }
+    h2 { margin: 0 0 8px; font-size: 1.05rem; color: #0f172a; }
+    p { margin: 0; }
+    .print-note { margin-top: 18px; font-size: .92rem; color: #475569; }
+    @media print { body { background: #fff; } main { padding: 0; } .card { border: 0; box-shadow: none; } header { background: #d9d9d9 !important; color: #000; } }
+  </style>
+</head>
+<body>
+  <main>
+    <article class="card">
+      <header>
+        <h1>${escapeHtml(guide.title)}</h1>
+        <p class="intro">${escapeHtml(guide.intro)}</p>
+      </header>
+      <div class="content">
+        ${rows}
+        <p class="print-note">${currentLang === 'fr' ? 'Astuce : vous pouvez imprimer ce mode d\'emploi avec Ctrl+P.' : 'Tip: you can print this user guide with Ctrl+P.'}</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>`;
+
+      const guideWindow = window.open('', '_blank');
+      if (!guideWindow) {
+        alert(currentLang === 'fr' ? "Le navigateur a bloqué l'ouverture du nouvel onglet." : 'The browser blocked the new tab.');
+        return;
+      }
+      guideWindow.document.open();
+      guideWindow.document.write(html);
+      guideWindow.document.close();
+    }
+
     function remplirExemple() {
       document.getElementById('in-nom').value = 'Dupont';
       document.getElementById('in-prenom').value = 'Camille';
@@ -1387,6 +1631,7 @@ Le sport permet de prendre du plaisir et de s’évader (activités en pleine na
     });
     document.getElementById('btn-export').addEventListener('click', exportPdf);
     document.getElementById('btn-remplir-exemple').addEventListener('click', remplirExemple);
+    document.getElementById('btn-guide').addEventListener('click', openUserGuide);
     document.getElementById('btn-save-excel').addEventListener('click', saveToExcel);
     document.getElementById('btn-import-excel').addEventListener('click', () => document.getElementById('file-import-excel').click());
     document.getElementById('btn-reset').addEventListener('click', resetForm);
