@@ -73,6 +73,32 @@
       flex-wrap: wrap;
     }
 
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      padding: 4px;
+    }
+
+    .lang-toggle button {
+      min-width: auto;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: transparent;
+      color: white;
+      border: 0;
+      box-shadow: none;
+      font-size: 1.05rem;
+    }
+
+    .lang-toggle button.is-active {
+      background: white;
+      color: var(--accent);
+    }
+
     .toolbar-actions .btn-secondary,
     .toolbar-actions .btn-primary {
       min-width: 160px;
@@ -488,6 +514,10 @@
 
         </div>
         <div class="toolbar-actions">
+          <div class="lang-toggle" aria-label="Choix de la langue / Language choice">
+            <button type="button" id="btn-lang-fr" class="is-active" data-lang-switch="fr" title="Version française">🇫🇷</button>
+            <button type="button" id="btn-lang-en" data-lang-switch="en" title="English version">🇬🇧</button>
+          </div>
           <input type="file" id="file-import-excel" accept=".xlsx,.xls" hidden>
           <button class="btn-secondary" type="button" id="btn-save-excel">Enregistrer une fiche</button>
           <button class="btn-secondary" type="button" id="btn-import-excel">Ouvrir une fiche</button>
@@ -524,25 +554,34 @@
               <label class="check-item"><input type="checkbox" value="Carte">Carte</label>
             </div>
           </div>
-          <div class="grid-2" style="margin-top: 12px;">
-            <label class="field"><span class="field-label">Autre</span><input type="text" id="in-type-autre" placeholder="Précisez si nécessaire"></label>
-            <label class="field"><span class="field-label">Précision du support matériel si autre</span><input type="text" id="in-mat-autre" placeholder="Ex. support mixte, exposition, borne interactive..."></label>
-            <div class="field-block">
-              <div class="field-label">Support matériel de l'information</div>
-              <div class="check-grid compact">
-                <label class="radio-line"><input type="radio" name="mat" value="Papier">Papier</label>
-                <label class="radio-line"><input type="radio" name="mat" value="Numérique">Numérique</label>
-                <label class="radio-line"><input type="radio" name="mat" value="Autre">Autre</label>
-              </div>
-            </div>
-          </div>
+<div class="grid-2" style="margin-top: 12px; align-items: start;">
+  <label class="field">
+    <span class="field-label">Autre</span>
+    <input type="text" id="in-type-autre" placeholder="Précisez si nécessaire">
+  </label>
+</br>
+
+  <div class="field-block">
+    <div class="field-label">Support matériel de l'information</div>
+    <div class="check-grid compact">
+      <label class="radio-line"><input type="radio" name="mat" value="Papier">Papier</label>
+      <label class="radio-line"><input type="radio" name="mat" value="Numérique">Numérique</label>
+      <label class="radio-line"><input type="radio" name="mat" value="Autre">Autre</label>
+    </div>
+  </div>
+
+  <label class="field">
+    <span class="field-label">Précision du support matériel si autre</span>
+    <input type="text" id="in-mat-autre" placeholder="Ex. support mixte, exposition, borne interactive...">
+  </label>
+</div>
         </section>
 
         <section class="section" data-complete-group="nature-genre">
           <h2>Nature et genre de l'information</h2>
           <div class="grid-2">
             <div class="subcard">
-              <div class="field-label">Nature de l'information</div>
+              <div class="field-label">Type de document</div>
               <div class="check-grid compact" style="margin-top: 8px;">
                 <label class="check-item"><input type="checkbox" class="nat" value="Texte">Texte</label>
                 <label class="check-item"><input type="checkbox" class="nat" value="Audio">Audio</label>
@@ -716,7 +755,7 @@
           <div class="section-title">Nature et Genre de l'information et support matériel : Quoi ?</div>
           <div class="section-box">
             <div class="line-block"><strong>Nature de l'information ?</strong> <span id="out-nature-line"></span></div>
-            <div class="line-block"><strong>Fiction / Documentaire ?</strong> <span id="out-contenu-line"></span></div>
+            <div class="line-block"><strong>Type de contenu ?</strong> <span id="out-contenu-line"></span></div>
             <div class="line-block"><strong>Genre de l'information ?</strong></div>
             <table class="genre-grid">
               <tr>
@@ -785,6 +824,114 @@
   </div>
 
   <script>
+    const I18N = {
+      fr: {
+        title: 'Analyse du document en BTS - Lycée Agricole du Bourbonnais',
+        buttons: {
+          save: 'Enregistrer une fiche', import: 'Ouvrir une fiche', export: 'Exporter en PDF', example: 'Charger un exemple', reset: 'Effacer les données'
+        },
+        sections: {
+          support: 'Support du document : quoi ?', nature: "Nature et genre de l'information", production: 'Production du document : comment ? pourquoi ? où ?', complement: "Afin de compléter l'analyse", pertinence: "Que retiens-tu de pertinent pour répondre au besoin d'information ?"
+        },
+        labels: {
+          nom:'Nom', prenom:'Prénom', classe:'Classe', docnum:'N° du document', typeDoc:'Type de document', autre:'Autre', mat:'Support matériel de l\'information' , matAutre:'Précision du support matériel si autre', nature:'Type de document', icono:'Précision pour le support iconographique', contenu:'Type de contenu', genre:'Genre de l\'information', contexte:'Contexte de production / création', intention:"Intention de l'émetteur / de l'éditeur", origine:'Origine géographique (pays, ville, région)', identification:'Identification du document', titre:'Titre du document', auteur:'Émetteur(s) / auteur(s)', editeur:'Éditeur(s)', date:'Date(s) de création / modification', pagination:'Pagination / durée / volume', biblioTitle:'Référence bibliographique', biblio:'Identification normée du document', validAuteur:"Validité de la source : compétence de l'auteur / des auteurs", validEditeur:"Validité de la source : que dire de l'éditeur ?", besoin:"Rappel du besoin d'information", pertinence:'Éléments de pertinence du document', remarques:'Remarque(s) / Question(s)'
+        },
+        placeholders: {typeAutre:'Précisez si nécessaire', matAutre:'Ex. support mixte, exposition, borne interactive...', icono:'photo, dessin, carte, schéma, graphique...', origine:'Ex. France', date:'Ex. 06/09/2011', pagination:'Ex. p. 12-15, 2 min 30, 1 carte...', biblio:'Saisissez la référence bibliographique avec gras, souligné ou italique si besoin.', besoin:"Reformulez ici le besoin d'information."},
+        options: {
+          Livre:'Livre', 'Périodique':'Périodique (journal, magazine, ...)', 'Page internet':'Page internet', Affiche:'Affiche', Publicité:'Publicité', Dictionnaire:'Dictionnaire', Encyclopédie:'Encyclopédie', Carte:'Carte', Papier:'Papier', Autre:'Autre', Numérique:'Numérique', Texte:'Texte', Audio:'Audio', Vidéo:'Vidéo', Iconographique:'Iconographique', Fiction:'Fiction', Documentaire:'Documentaire',
+          'Scientifique et technique':'Scientifique et technique', Professionnel:'Professionnel', 'Institutionnel (Administration)':'Institutionnel (Administration)', 'Individuel (Avis perso.)':'Individuel (Avis perso.)', 'Commercial ou industriel (Entreprise)':'Commercial ou industriel (Entreprise)', 'Associatif (Association, Syndicat)':'Associatif (Association, Syndicat)',
+          'Informer ou diffuser le savoir':'Informer ou diffuser le savoir', Former:'Former', Débattre:'Débattre', 'Sensibiliser à une cause':'Sensibiliser à une cause', Vendre:'Vendre', Convaincre:'Convaincre',
+          genreS:'Information spécialisée (explicite + durable)', genreR:'Information de renseignement (explicite + éphémère)', genreC:'Information culturelle (diffuse + durable)', genreM:'Information médiatique (diffuse + éphémère)'
+        },
+        rich: {bold:'Gras', underline:'Souligné', italic:'Italique', remove:'Effacer format'},
+        help: 'Outil : ',
+        print: {
+          header1:'Lycée Agricole du Bourbonnais - BTS', header2:'Analyse du document', nom:'NOM :', prenom:'Prénom :', classe:'Classe :', num:'N°', support:'Support du document : Quoi ?', type:'Type de document ?', mat:"Support matériel de l'information ?", natureTitle:"Nature et Genre de l'information et support matériel : Quoi ?", nature:"Nature de l'information ?", contenu:'Type de contenu ?', genre:"Genre de l'information ?", prod:'Production du document : Comment ? Pourquoi ? Où ?', contexte:'Contexte de production / création du document ?', intention:"Intention de l'émetteur (auteur) ou de l'éditeur ?", origine:'Origine géographique ?', comp:"Afin de compléter l'analyse : Identification du document", intro:"Concernant l'identification de la source de l'information, parmi les éléments d'identité je peux voir que le document :", aTitre:'a pour titre ', aAuteur:'a pour émetteur(s) / auteur(s) ', aEditeur:'a pour éditeur(s) / diffuseur(s) ', aDate:'a pour date(s) de création / modification ', aPagination:'a pour pagination / durée / volume ', biblio:'Identification normée du document : référence bibliographique', valid:"Validité de la source de l'information", validAuteur:"Je peux dire que l'auteur / les auteurs du document est / sont compétent(s) car :", validEditeur:"Que puis-je dire de l'éditeur ? (important si l'auteur n'est pas identifiable)", pertinence:"Que retiens-tu de pertinent pour répondre au besoin d'information ?", besoin:"Rappel du besoin d'information =", elem:'Éléments de pertinence du document =', remarques:'Remarque(s) / Question(s)'
+        },
+        genreCells: {S:['L\'information spécialisée','scientifique, technique','Utilité =','explicite + durable'], R:["L'information de renseignement",'', 'Utilité =','explicite + éphémère'], C:["L'information culturelle",'', 'Utilité =','diffuse + durable'], M:["L'information médiatique",'', 'Utilité =','diffuse + éphémère']},
+        alerts: {reset:'Réinitialiser toute la fiche ? Les données non sauvegardées seront perdues.', importBad:'Le fichier importé ne contient pas de données exploitables.', xlsx:'La bibliothèque Excel n\'est pas disponible. Vérifiez votre connexion Internet puis rechargez la page.', importError:"Impossible d'importer ce fichier Excel.", print:"Pour un rendu propre :\n\nDans la fenêtre d'impression,\n→ décochez 'En-têtes et pieds de page'."}
+      },
+      
+	  // ANGLAIS
+	  en: {
+        title: 'Document analysis for BTS - Lycée Agricole du Bourbonnais',
+        buttons: {save:'Save file', import:'Open file', export:'Export as PDF', example:'Load an example', reset:'Clear data'},
+        sections: {support:'Document medium: What?', 
+				nature:'Nature and kind of information: What?', 
+				production:'Document output: How? Why? Where?', 
+				complement:'In order to complete the analysis: document identification', 
+				pertinence:'What relevant information do you retain to answer the information need?'},
+        labels: {nom:'Family name', prenom:'Christian name', classe:'Class', docnum:'Document N°', 
+				typeDoc:'Document type', autre:'Other', matAutre:'Details about the physical medium if other', mat:'Physical medium of the information', 
+				nature:'Document type', icono:'Details for iconographic material', contenu:'Content type', 
+				genre:'Kind of information', contexte:'Output context / Document creation', intention:'Author`s or publisher`s aim', 
+				origine:'Geographical origin (country, city, region)', 
+				identification:'Document identification', titre:'Document title', auteur:'Sender(s) / author(s)', editeur:'Publisher(s)', date:'Creation / modification date(s)', 
+				pagination:'Pagination / duration / Size', biblioTitle:'Bibliographic reference', biblio:'Standardized document identification', 
+				validAuteur:'Source validity: author(s) expertise', validEditeur:'Source validity: what can be said about the publisher?', besoin:'Reminder of the information need', 
+				pertinence:'Relevant elements od the document', remarques:'Comment(s) / Question(s)'},
+        placeholders: {typeAutre:'Specify if needed', matAutre:'E.g. mixed medium, exhibition, interactive kiosk...', 
+				icono:'photo, drawing, map, diagram, chart...', origine:'E.g. France', date:'E.g. 06/09/2011', 
+				pagination:'E.g. pp. 12-15, 2 min 30, 1 map...', biblio:'Enter the bibliographic reference with bold, underline or italics if needed.', 
+				besoin:'Restate the information need here.'},
+        options: {Livre:'Book', 'Périodique':'Periodical (newspaper, magazine, ...)', 'Page internet':'Web page', Affiche:'Poster', Publicité:'Advertisement', 
+				Dictionnaire:'Dictionary', Encyclopédie:'Encyclopedia', Carte:'Map', Papier:'Paper', Autre:'Other', Numérique:'Digital', Texte:'Text', Audio:'Audio', Vidéo:'Video', 
+				Iconographique:'Illustration', Fiction:'Fiction', Documentaire:'Documentary', 
+				'Scientifique et technique':'Scientific and technical', 'Professionnel':'Professional', 'Institutionnel (Administration)':'Institutional (administration)', 
+				'Individuel (Avis perso.)':'Private (own point of view)', 'Commercial ou industriel (Entreprise)':'Saling or industrial (firm)', 
+				'Associatif (Association, Syndicat)':'Volunteering (Non-profit making organisation, trade union)', 'Informer ou diffuser le savoir':'Inform or share knowledge', 
+				Former:'Train / educate', Débattre:'Discuss', 'Sensibiliser à une cause':'Raise awareness of an issue', Vendre:'Sell', Convaincre:'Convince', 
+				genreS:'Specialized information (explicit + long-lasting)', genreR:'Practical information (explicit + short-lived)', 
+				genreC:'Cultural information (unclear + long-lasting)', genreM:'Media information (unclear + short-lived)'},
+        rich:{bold:'Bold', underline:'Underline', italic:'Italic', remove:'Clear formatting'},
+        help:'Tool: ',
+        print:{header1:'Lycée Agricole du Bourbonnais - BTS', header2:'Document analysis', nom:'LAST NAME:', prenom:'First name:', classe:'Class:', num:'No.', 
+				support:'Document medium: What?', type:'Document type?', mat:'Physical medium of the information?', 
+				natureTitle:'Nature and category of information and physical medium: What?', nature:'Document type?', contenu:'Fiction / Non-fiction?', 
+				genre:'Kind of information?', prod:'Document production: How? Why? Where?', contexte:'Output context / Document creation?', 
+				intention:'Sender (author) or publisher intention?', origine:'Geographical origin?', comp:'To complete the analysis: Document identification', 
+				intro:'Concerning the identification of the source of information, among the identity elements I can see that the document:', 
+				aTitre:'has the title ', aAuteur:'has as sender(s) / author(s) ', aEditeur:'has as publisher(s) / distributor(s) ', aDate:'has creation / modification date(s) ', 
+				aPagination:'has pagination / duration / ize ',
+				biblio:'Standardized document identification: bibliographic reference', 
+				valid:'Validity of the information source', validAuteur:'I can say that the author(s) of the document is / are competent because:', 
+				validEditeur:'What can I say about the publisher? (important if the author is not identifiable)', pertinence:'What relevant information do you keep to answer the information need?', 
+				besoin:'Reminder of the information need =', elem:'Relevant elements od the document =', remarques:'Comment(s) / Question(s)'},
+        genreCells:{S:['Specialized information','scientific, technical','Usefulness =','explicit + long-lasting'], 
+				R:['Practical information','', 'Usefulness =','explicit + short-lived'], 
+				C:['Cultural information','', 'Usefulness =','unclear + long-lasting'], 
+				M:['Media information','', 'Usefulness =','unclear + short-lived']},
+        alerts:{reset:'Reset the whole form? Unsaved data will be lost.', importBad:'The imported file does not contain usable data.', xlsx:'The Excel library is not available. Check your Internet connection, then reload the page.', importError:'Unable to import this Excel file.', print:"For a clean layout:\n\nIn the print window,\n→ uncheck 'Headers and footers'."}
+      }
+    };
+    let currentLang = localStorage.getItem('analyse-doc-lang') || 'fr';
+    function t(path) { return path.split('.').reduce((o,k)=>o&&o[k], I18N[currentLang]) || path; }
+    function setNodeText(selector, text) { const n = document.querySelector(selector); if (n) n.textContent = text; }
+    function translateOptionLabel(inputSelector, key) { const input = document.querySelector(inputSelector); if (input && input.parentElement) input.parentElement.childNodes[input.parentElement.childNodes.length - 1].textContent = I18N[currentLang].options[key]; }
+    function applyLanguage(lang) {
+      currentLang = lang; localStorage.setItem('analyse-doc-lang', lang); document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang-switch]').forEach(b => b.classList.toggle('is-active', b.dataset.langSwitch === lang));
+      setNodeText('.toolbar h1', t('title'));
+      setNodeText('#btn-save-excel', t('buttons.save')); setNodeText('#btn-import-excel', t('buttons.import')); setNodeText('#btn-export', t('buttons.export')); setNodeText('#btn-remplir-exemple', t('buttons.example')); setNodeText('#btn-reset', t('buttons.reset'));
+      const hs = document.querySelectorAll('.section h2');
+      if (hs[0]) hs[0].textContent = t('sections.support'); if (hs[1]) hs[1].textContent = t('sections.nature'); if (hs[2]) hs[2].textContent = t('sections.production'); if (hs[3]) hs[3].textContent = t('sections.complement'); if (hs[4]) hs[4].textContent = t('sections.pertinence');
+      const labels = Array.from(document.querySelectorAll('.field-label, .subcard-title'));
+const labelTexts = ['nom','prenom','classe','docnum','typeDoc','autre','mat','matAutre','nature','contenu','genre','contexte','intention','origine','identification','titre','auteur','editeur','date','pagination','biblioTitle','biblio','validAuteur','validEditeur','besoin','pertinence','remarques'];
+      labels.forEach((el,i)=>{ if(labelTexts[i]) el.textContent = t('labels.'+labelTexts[i]); });
+      const iconoSpan = document.querySelector('label[style*="margin-top:12px"] span:not(.field-label)'); if (iconoSpan) iconoSpan.textContent = t('labels.icono');
+      document.getElementById('in-type-autre').placeholder = t('placeholders.typeAutre'); document.getElementById('in-mat-autre').placeholder = t('placeholders.matAutre'); document.getElementById('in-icono-precision').placeholder = t('placeholders.icono'); document.getElementById('in-origine').placeholder = t('placeholders.origine'); document.getElementById('in-date-doc').placeholder = t('placeholders.date'); document.getElementById('in-pagination').placeholder = t('placeholders.pagination'); document.getElementById('in-biblio-rich').dataset.placeholder = t('placeholders.biblio'); document.getElementById('in-besoin').placeholder = t('placeholders.besoin');
+      ['Livre','Périodique','Page internet','Affiche','Publicité','Dictionnaire','Encyclopédie','Carte'].forEach(v=>translateOptionLabel(`#group-type input[value="${v}"]`, v));
+      ['Papier','Numérique','Autre'].forEach(v=>translateOptionLabel(`input[name="mat"][value="${v}"]`, v));
+      ['Texte','Audio','Vidéo','Iconographique'].forEach(v=>translateOptionLabel(`.nat[value="${v}"]`, v));
+      ['Fiction','Documentaire'].forEach(v=>translateOptionLabel(`.contenu[value="${v}"]`, v));
+      ['Scientifique et technique','Professionnel','Institutionnel (Administration)','Individuel (Avis perso.)','Commercial ou industriel (Entreprise)','Associatif (Association, Syndicat)'].forEach(v=>translateOptionLabel(`.ctx[value="${v}"]`, v));
+      ['Informer ou diffuser le savoir','Former','Débattre','Sensibiliser à une cause','Vendre','Convaincre'].forEach(v=>translateOptionLabel(`.intention[value="${v}"]`, v));
+      translateOptionLabel('input[name="genre"][value="S"]','genreS'); translateOptionLabel('input[name="genre"][value="R"]','genreR'); translateOptionLabel('input[name="genre"][value="C"]','genreC'); translateOptionLabel('input[name="genre"][value="M"]','genreM');
+      const rb = document.querySelectorAll('.rich-toolbar button'); if(rb[0]) rb[0].innerHTML='<strong>'+t('rich.bold')+'</strong>'; if(rb[1]) rb[1].innerHTML='<u>'+t('rich.underline')+'</u>'; if(rb[2]) rb[2].innerHTML='<em>'+t('rich.italic')+'</em>'; if(rb[3]) rb[3].textContent=t('rich.remove');
+      const help = document.querySelector('.help-box'); if (help) help.childNodes[0].textContent = t('help');
+      syncPrint();
+    }
+
     function val(id) {
       const node = document.getElementById(id);
       return node ? node.value.trim() : "";
@@ -808,10 +955,10 @@
     }
 
     function makeOptionsLine(options, selectedValues, extraLabel, extraValue) {
-      const parts = options.map(option => `<span class="choice-item">${box(selectedValues.includes(option))}&nbsp;${escapeHtml(option)}</span>`);
+      const parts = options.map(option => `<span class="choice-item">${box(selectedValues.includes(option))}&nbsp;${escapeHtml(I18N[currentLang].options[option] || option)}</span>`);
       if (extraLabel) {
         const detail = extraValue ? ' = ' + escapeHtml(extraValue) : ' = _________________';
-        parts.push(`<span class="choice-item">${box(Boolean(extraValue))}&nbsp;${escapeHtml(extraLabel)}${detail}</span>`);
+        parts.push(`<span class="choice-item">${box(Boolean(extraValue))}&nbsp;${escapeHtml(I18N[currentLang].options[extraLabel] || extraLabel)}${detail}</span>`);
       }
       return parts.join(' / ');
     }
@@ -847,6 +994,37 @@
 
 
     function syncPrint() {
+      const P = I18N[currentLang].print;
+      document.querySelector('.print-header .line-1').textContent = P.header1;
+      document.querySelector('.print-header .line-2').textContent = P.header2;
+      const idCells = document.querySelectorAll('.id-cell strong');
+      if (idCells[0]) idCells[0].textContent = P.nom; if (idCells[1]) idCells[1].textContent = P.prenom; if (idCells[2]) idCells[2].textContent = P.classe; if (idCells[3]) idCells[3].textContent = P.num;
+      const st = document.querySelectorAll('.section-title');
+      [P.support, P.natureTitle, P.prod, P.comp, P.valid, P.pertinence, P.remarques].forEach((txt,i)=>{ if(st[i]) st[i].textContent = txt; });
+      const blocks = document.querySelectorAll('.print-section .line-block strong');
+      if (blocks[0]) blocks[0].textContent = P.type; if (blocks[1]) blocks[1].textContent = P.mat; if (blocks[2]) blocks[2].textContent = P.nature; if (blocks[3]) blocks[3].textContent = P.contenu; if (blocks[4]) blocks[4].textContent = P.genre; if (blocks[5]) blocks[5].textContent = P.contexte; if (blocks[6]) blocks[6].textContent = P.intention; if (blocks[7]) blocks[7].textContent = P.origine;
+      const freeIntro = document.querySelectorAll('.free-text')[0]; if (freeIntro) freeIntro.textContent = P.intro;
+      const titreLine = document.getElementById('out-titre-doc')?.parentElement;
+      const auteurLine = document.getElementById('out-auteur')?.parentElement;
+      const editeurLine = document.getElementById('out-editeur')?.parentElement;
+      const dateLine = document.getElementById('out-date-doc')?.parentElement;
+      const paginationLine = document.getElementById('out-pagination')?.parentElement;
+      if (titreLine) titreLine.childNodes[0].textContent = P.aTitre;
+      if (auteurLine) auteurLine.childNodes[0].textContent = P.aAuteur;
+      if (editeurLine) editeurLine.childNodes[0].textContent = P.aEditeur;
+      if (dateLine) dateLine.childNodes[0].textContent = P.aDate;
+      if (paginationLine) paginationLine.childNodes[0].textContent = P.aPagination;
+      const bib = document.querySelector('.biblio-frame strong'); if (bib) bib.textContent = P.biblio;
+      const validityStrong = document.querySelectorAll('.two-col-print strong'); if (validityStrong[0]) validityStrong[0].textContent = P.validAuteur; if (validityStrong[1]) validityStrong[1].textContent = P.validEditeur;
+
+const besoinStrong = document.getElementById('out-besoin')?.parentElement?.querySelector('strong');
+if (besoinStrong) besoinStrong.textContent = P.besoin;
+
+const pertinenceStrong = document.getElementById('out-pertinence')?.previousElementSibling?.querySelector('strong');
+if (pertinenceStrong) pertinenceStrong.textContent = P.elem;
+
+
+      ['S','R','C','M'].forEach(code=>{ const c=I18N[currentLang].genreCells[code]; const td=document.getElementById('td-'+code); if(td&&c) td.innerHTML = `<span class="title">${escapeHtml(c[0])}</span>${escapeHtml(c[1])}${c[1]?'<br><br>':''}${escapeHtml(c[2])}<br>${escapeHtml(c[3])}`; });
       const typesList = ['Livre', 'Périodique', 'Page internet', 'Affiche', 'Publicité', 'Dictionnaire', 'Encyclopédie', 'Carte'];
       const naturesList = ['Texte', 'Audio', 'Vidéo', 'Iconographique'];
       const ctxList = [
@@ -891,7 +1069,7 @@
 
       const selectedMat = document.querySelector('input[name="mat"]:checked')?.value || '';
       const matAutre = val('in-mat-autre');
-      setHtml('out-mat-line', `<span class="choice-item">${box(selectedMat === 'Papier')}&nbsp;Papier</span> / <span class="choice-item">${box(selectedMat === 'Numérique')}&nbsp;Numérique</span> / <span class="choice-item">${box(selectedMat === 'Autre')}&nbsp;Autre${matAutre ? ' = ' + escapeHtml(matAutre) : ' = _________________'}</span>`);
+      setHtml('out-mat-line', `<span class="choice-item">${box(selectedMat === 'Papier')}&nbsp;${escapeHtml(I18N[currentLang].options.Papier)}</span> / <span class="choice-item">${box(selectedMat === 'Numérique')}&nbsp;${escapeHtml(I18N[currentLang].options.Numérique)}</span> / <span class="choice-item">${box(selectedMat === 'Autre')}&nbsp;${escapeHtml(I18N[currentLang].options.Autre)}${matAutre ? ' = ' + escapeHtml(matAutre) : ' = _________________'}</span>`);
 
       const selectedNatures = checkedValues('.nat');
       const natureLine = makeOptionsLine(naturesList, selectedNatures, '', '');
@@ -1047,7 +1225,7 @@
 
     function loadFormData(data) {
       if (!data || typeof data !== 'object') {
-        alert('Le fichier importé ne contient pas de données exploitables.');
+        alert(t('alerts.importBad'));
         return;
       }
 
@@ -1079,7 +1257,7 @@
 
     function saveToExcel() {
       if (typeof XLSX === 'undefined') {
-        alert("La bibliothèque Excel n'est pas disponible. Vérifiez votre connexion Internet puis rechargez la page.");
+        alert(t('alerts.xlsx'));
         return;
       }
 
@@ -1098,7 +1276,7 @@
     async function importFromExcel(file) {
       if (!file) return;
       if (typeof XLSX === 'undefined') {
-        alert("La bibliothèque Excel n'est pas disponible. Vérifiez votre connexion Internet puis rechargez la page.");
+        alert(t('alerts.xlsx'));
         return;
       }
 
@@ -1125,7 +1303,7 @@
     }
 
     function resetForm() {
-      const ok = window.confirm('Réinitialiser toute la fiche ? Les données non sauvegardées seront perdues.');
+      const ok = window.confirm(t('alerts.reset'));
       if (!ok) return;
       document.getElementById('analyse-form').reset();
       setRichHtml('in-biblio', '');
@@ -1189,6 +1367,10 @@ Le sport permet de prendre du plaisir et de s’évader (activités en pleine na
       updateSectionCompletion();
     }
 
+    document.querySelectorAll('[data-lang-switch]').forEach(btn => {
+      btn.addEventListener('click', () => applyLanguage(btn.dataset.langSwitch));
+    });
+
     document.querySelectorAll('.rich-toolbar button').forEach(btn => {
       btn.addEventListener('click', () => execRichCommand(btn.dataset.cmd, btn.dataset.target));
     });
@@ -1214,7 +1396,7 @@ Le sport permet de prendre du plaisir et de s’évader (activités en pleine na
         await importFromExcel(file);
       } catch (error) {
         console.error(error);
-        alert("Impossible d'importer ce fichier Excel.");
+        alert(t('alerts.importError'));
       } finally {
         event.target.value = '';
       }
@@ -1227,9 +1409,11 @@ Le sport permet de prendre du plaisir et de s’évader (activités en pleine na
     if (params.get('demo') === '1') {
       remplirExemple();
       syncRichToHidden();
+      applyLanguage(currentLang);
     } else {
       syncPrint();
       updateSectionCompletion();
+      applyLanguage(currentLang);
     }
   </script>
 </body>
